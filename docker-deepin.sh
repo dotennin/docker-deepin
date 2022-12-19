@@ -2,15 +2,18 @@
 
 xhost + > /dev/null 2>&1
 
+build(){
+    cd docker && docker build . -t dotennin/deepin
+}
+
 _init(){
-    cd docker && docker build . -t deepin && \
     docker run -d --name deepin \
         --device /dev/snd --ipc="host"\
         -v /tmp/.X11-unix:/tmp/.X11-unix \
         -v $HOME/.local/share/deepin-docker:$HOME \
         -v /media:/media\
         -v /mnt:/mnt\
-        -e XMODIFIERS=@im=ibus \
+        -e XMODIFIERS=$XMODIFIERS \
         -e QT_IM_MODULE=$GTK_IM_MODULE \
         -e GTK_IM_MODULE=$GTK_IM_MODULE \
         -e DISPLAY=unix$DISPLAY \
@@ -18,8 +21,12 @@ _init(){
         -e VIDEO_GID=`getent group video | cut -d: -f3` \
         -e GID=`id -g` \
         -e UID=`id -u` \
-        deepin \
+        dotennin/deepin \
         ping -i 30 bing.com -D
+}
+
+check_build(){
+  test "`docker images | grep dotennin/deepin`" && echo "images already exists." || build
 }
 
 check_container(){
@@ -44,6 +51,7 @@ check_container(){
 
 init(){
     [ ! -d ~/deepin ] && mkdir -p ~/deepin
+    check_build
     check_container
 }
 

@@ -1,8 +1,8 @@
-# 上手🎉️
+# 上手 🎉️
 
-本脚本依赖Docker，需要提前安装好Docker环境，如果以安装请忽略。
+本脚本依赖 Docker，需要提前安装好 Docker 环境，如果以安装请忽略。
 
-Debian/Ubuntu安装方法：
+Debian/Ubuntu 安装方法：
 
 ```bash
 sudo apt update
@@ -16,14 +16,14 @@ docker ps -a
 
 超级简单的安装使用方法：
 
-**注意不要使用sudo运行**
+**注意不要使用 sudo 运行**
 
 ```bash
 > bash -c "$(curl -L https://git.io/JORao)" @ install deepin.com.qq.office deepin.com.wechat
 
 # 或者
 > git clone git@github.com:ygcaicn/docker-deepin.git
-> cd docker-deepin/desktop
+> cd docker-deepin
 > ./install.sh install deepin.com.qq.office deepin.com.wechat
 ```
 
@@ -50,7 +50,7 @@ Commands:
 --reinit|reinit
       rebuild container by force.
 
-app list: 
+app list:
       deepin.com.thunderspeed deepin.com.taobao.wangwang deepin.com.taobao.aliclient.qianniu
       deepin.com.qq.rtx2015 deepin.com.qq.office deepin.com.qq.im.light deepin.com.qq.im
       deepin.com.qq.b.eim deepin.com.qq.b.crm deepin.com.gtja.fuyi deepin.com.foxmail
@@ -61,24 +61,24 @@ app list:
 ```
 
 更新脚本：
+
 ```
 bash -c "$(curl -L https://git.io/JORao)" @ update
 ```
 
-基本使用方法: 
+基本使用方法:
 
 1. `docker-deepin init`
 2. `docker-deepin install deepin.com.wechat`
-3. `docker-deepin run deepin.com.wechat` 或者 点击图标运行（install完已经生成图标了）
+3. `docker-deepin run deepin.com.wechat` 或者 点击图标运行（install 完已经生成图标了）
 
 **遇到问题首先尝试：`docker-deepin cleanup`然后重新`docker-deepin init`。**
-
 
 ![show](show.png)
 
 ---
 
-# 进阶🚀️
+# 进阶 🚀️
 
 ## 创建容器
 
@@ -102,7 +102,7 @@ docker run -d --name deepin \
 
 ## 安装软件
 
-容器中自带了WeChat和TIM。
+容器中自带了 WeChat 和 TIM。
 
 ```bash
 docker exec -t deepin sh -c "apt update && apt install -y  deepin.com.thunderspeed"

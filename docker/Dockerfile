@@ -1,5 +1,5 @@
 FROM bestwu/deepin:stable-i386
-LABEL maintainer='Jachin <ygcaicn@gmail.com>'
+LABEL maintainer='Dotennin <wenhua4438@gmail.com>'
 
 RUN echo 'deb http://packages.deepin.com/deepin stable main non-free contrib' > /etc/apt/sources.list && \
     apt-get update && \
@@ -18,19 +18,31 @@ RUN apt-get install -y --no-install-recommends iputils-ping procps deepin.com.we
     find /usr/share/doc -type f -delete && \
     find /usr/share/man -type f -delete
 
+
 ENV LANGUAGE=zh_CN.UTF-8 \
     LC_ALL=zh_CN.UTF-8 \
     LANG=zh_CN.UTF-8 \
     TZ=UTC-8\
-    AUDIO_GID=63 \
-    VIDEO_GID=39 \
+    AUDIO_GID=29 \
+    VIDEO_GID=44 \
     GID=1000 \
     UID=1000
+
+ENV GTK_IM_MODULE=ibus
+ENV QT_IM_MODULE=ibus
+ENV XMODIFIERS=@im=ibus
+ENV DefaultIMModule=ibus
 
 RUN groupadd -o -g $GID deepin && \
     groupmod -o -g $AUDIO_GID audio && \
     groupmod -o -g $VIDEO_GID video && \
     useradd -d "/home/deepin" -m -o -u $UID -g deepin -G audio,video deepin
+
+# set DPI to 190
+#RUN env WINEPREFIX="$HOME/.deepinwine/@public_bottle_name@" && \
+#    deepin-wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d 190 /f
+
+COPY ./run_v2.sh /opt/deepinwine/tools/run_v2.sh
 
 ADD entrypoint.sh /
 ADD utils/* /usr/local/bin/

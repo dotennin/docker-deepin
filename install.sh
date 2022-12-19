@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-DEEPIN="${HOME}/.local/bin/docker-deepin.sh"
-REPO="https://raw.githubusercontent.com/ygcaicn/docker-deepin/main"
+DEEPIN="${HOME}/.local/bin/docker-deepin"
+REPO="https://raw.githubusercontent.com/dotennin/docker-deepin/main"
 
 if ! [ -x "$(command -v docker)" ]; then
         echo 'Error: docker is not installed.' >&2
@@ -10,9 +10,9 @@ fi
 
 download(){
     [ ! -d ${HOME}/.local/bin/ ] && mkdir -p ${HOME}/.local/bin/ && source ~/.profile
-    curl -Ls -H "Cache-Control: no-cache" "${REPO}/desktop/docker-deepin.sh" -o ${DEEPIN}
-    chmod +x ${DEEPIN}
-    ln -f ${DEEPIN} ${HOME}/.local/bin/docker-deepin
+    curl -Ls -H "Cache-Control: no-cache" "./docker-deepin.sh" -o ${DEEPIN}
+    chmod +x docker-deepin.sh
+    cp docker-deepin.sh ${HOME}/.local/bin/docker-deepin
 }
 
 install(){

@@ -5,14 +5,13 @@ xhost + > /dev/null 2>&1
 _init(){
     docker run -d --name deepin \
         --device /dev/snd --ipc="host"\
-        -v $HOME/deepin:/home/deepin \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -v $HOME:$HOME\
+        -v $HOME/.local/share/deepin-docker:$HOME \
         -v /media:/media\
         -v /mnt:/mnt\
-        -e XMODIFIERS=@im=fcitx \
-        -e QT_IM_MODULE=fcitx \
-        -e GTK_IM_MODULE=fcitx \
+        -e XMODIFIERS=$XMODIFIERS \
+        -e QT_IM_MODULE=$GTK_IM_MODULE \
+        -e GTK_IM_MODULE=$GTK_IM_MODULE \
         -e DISPLAY=unix$DISPLAY \
         -e AUDIO_GID=`getent group audio | cut -d: -f3` \
         -e VIDEO_GID=`getent group video | cut -d: -f3` \
